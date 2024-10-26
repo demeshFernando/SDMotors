@@ -1,0 +1,13 @@
+/* background colors */
+.general-blue {
+  background-color: var(--general-blue);
+}
+
+/* font colors */
+.font-white {
+  color: var(--general-white);
+}
+
+.font-black {
+  color: black;
+}
