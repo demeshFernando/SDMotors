@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { type addingNewTabProps as AddingNewTabProps } from "../../functionalitites/types.tsx";
+import { type addingNewTabProps } from "../../functionalitites/types.tsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons";
-
-type addingNewTabProps = AddingNewTabProps;
 
 type isTabActiveProps = {
   name: string;
@@ -12,6 +10,7 @@ type isTabActiveProps = {
   isActive: boolean;
   classNames: string;
   lastActiveTime: Date;
+  componentPointer: React.ComponentType;
 };
 
 type tabViewProps = {
@@ -20,9 +19,12 @@ type tabViewProps = {
 
 export default function TabView({ newTabObject }: tabViewProps) {
   const [isTabActive, setIsTabActive] = useState<isTabActiveProps[]>([]);
+  let CustomComponent: React.ComponentType = () => {
+    return <div className="main-body"></div>;
+  };
 
   useEffect(() => {
-    if (typeof newTabObject != "undefined") {
+    if (typeof newTabObject !== "undefined") {
       ConfigureNewTab(newTabObject);
     }
   }, [newTabObject]);
@@ -45,6 +47,7 @@ export default function TabView({ newTabObject }: tabViewProps) {
           classNames: "button-content",
           iconName: isTabActive[i].iconName,
           lastActiveTime: isTabActive[i].lastActiveTime,
+          componentPointer: isTabActive[i].componentPointer,
         },
       ];
     }
@@ -62,6 +65,7 @@ export default function TabView({ newTabObject }: tabViewProps) {
       classNames: "button-content active",
       iconName: tabDetails.iconName,
       lastActiveTime: new Date(),
+      componentPointer: tabDetails.componentPointer,
     };
     setIsTabActive([...openedTabs, newTabProperties]);
   };
@@ -109,6 +113,7 @@ export default function TabView({ newTabObject }: tabViewProps) {
             classNames: "button-content active",
             iconName: isTabActive[i].iconName,
             lastActiveTime: new Date(),
+            componentPointer: isTabActive[i].componentPointer,
           },
         ];
         isEvenOneTabActive = true;
@@ -121,6 +126,7 @@ export default function TabView({ newTabObject }: tabViewProps) {
             classNames: "button-content active",
             iconName: isTabActive[i].iconName,
             lastActiveTime: new Date(),
+            componentPointer: isTabActive[i].componentPointer,
           },
         ];
       } else {
@@ -132,6 +138,7 @@ export default function TabView({ newTabObject }: tabViewProps) {
             classNames: "button-content",
             iconName: isTabActive[i].iconName,
             lastActiveTime: isTabActive[i].lastActiveTime,
+            componentPointer: isTabActive[i].componentPointer,
           },
         ];
       }
@@ -139,38 +146,44 @@ export default function TabView({ newTabObject }: tabViewProps) {
     setIsTabActive(openedTabs);
   };
 
-  const generateChildren = isTabActive.map((child, index) => (
-    <div className="tab-button" key={index}>
-      <div className={child.classNames}>
-        <div className="button-name-logo">
-          <FontAwesomeIcon icon={iconsSet[child.iconName]} />
-        </div>
-        <div
-          onClick={() => {
-            ToggleTabActiveStatus(child.name);
-          }}
-          className="button-name"
-        >
-          {child.name}
-        </div>
-        {child.isActive ? (
+  const generateChildren = isTabActive.map((child, index) => {
+    if (child.isActive) {
+      CustomComponent = child.componentPointer;
+    }
+    return (
+      <div className="tab-button" key={index}>
+        <div className={child.classNames}>
+          <div className="button-name-logo">
+            <FontAwesomeIcon icon={iconsSet[child.iconName]} />
+          </div>
           <div
             onClick={() => {
-              RemoveActiveTab(child.name);
+              ToggleTabActiveStatus(child.name);
             }}
-            className="button-closing-logo"
+            className="button-name"
           >
-            <FontAwesomeIcon icon={iconsSet["faXmark"]} />
+            {child.name}
           </div>
-        ) : null}
+          {child.isActive ? (
+            <div
+              onClick={() => {
+                RemoveActiveTab(child.name);
+              }}
+              className="button-closing-logo"
+            >
+              <FontAwesomeIcon icon={iconsSet["faXmark"]} />
+            </div>
+          ) : null}
+        </div>
       </div>
-    </div>
-  ));
-
+    );
+  });
   return isTabActive.length > 0 ? (
     <>
       <div className="tab-view">{generateChildren}</div>
-      <div>Content here</div>
+      <div className="main-body">
+        <CustomComponent />
+      </div>
     </>
   ) : (
     <div className="tab-view-empty"></div>
