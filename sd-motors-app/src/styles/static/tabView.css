@@ -1,0 +1,54 @@
+.tab-view {
+  width: 100%;
+  height: 40px;
+  background-color: var(--light-blue);
+  display: flex;
+}
+
+.tab-button {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 40px;
+  margin-left: 5px;
+  align-items: flex-end;
+}
+
+.tab-view .tab-button .button-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--container-unfocused-color);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: 1px solid var(--light-border-color);
+  height: 30px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.tab-view .tab-button .button-content.active {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--general-white);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: 1px solid var(--light-border-color);
+  height: 30px;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.tab-view .tab-button .button-content .button-name-logo {
+  padding: 0 5px;
+}
+
+.tab-view .tab-button .button-content .button-closing-logo {
+  padding-left: 10px;
+  color: var(--text-unfocused-color);
+}
+
+.tab-view .tab-button .button-content.active .button-closing-logo:hover {
+  color: black;
+}

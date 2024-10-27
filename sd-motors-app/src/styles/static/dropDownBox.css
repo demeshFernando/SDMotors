@@ -1,0 +1,27 @@
+.drop-down-box div {
+  background-color: var(--general-white);
+  display: flex;
+  align-items: start;
+  flex-grow: 1;
+  color: black;
+  border-radius: none;
+  padding: 5px 10px;
+  color: var(--text-unfocused-color);
+  font-size: 15px;
+}
+
+.drop-down-box .children-items {
+  position: relative;
+  white-space: nowrap;
+  bottom: 5px;
+}
+
+.drop-down-box div:hover {
+  color: black;
+}
+
+.div-sub-dropDown {
+  position: absolute;
+  right: 100%;
+  top: 0;
+}
