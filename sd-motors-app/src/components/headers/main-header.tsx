@@ -1,4 +1,6 @@
 import Button from "../button/button";
+import Document from "../documents/document";
+import Notification from "../notification/notification";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons";
@@ -35,7 +37,11 @@ export default function MainHeader(props: mainHeaderProps) {
       <div className="right-section-functionalities">
         <Button
           onClick={() => {
-            GenerateNewTab({ name: "Notification", iconName: "faMessage" });
+            GenerateNewTab({
+              name: "Notification",
+              iconName: "faMessage",
+              componentPointer: Notification,
+            });
           }}
           buttonBackgroundColor="general-blue"
           buttonType="Normal"
@@ -44,7 +50,11 @@ export default function MainHeader(props: mainHeaderProps) {
         </Button>
         <Button
           onClick={() => {
-            GenerateNewTab({ name: "Documents", iconName: "faFile" });
+            GenerateNewTab({
+              name: "Documents",
+              iconName: "faFile",
+              componentPointer: Document,
+            });
           }}
           buttonBackgroundColor="general-blue"
           buttonType="Normal"
@@ -53,7 +63,11 @@ export default function MainHeader(props: mainHeaderProps) {
         </Button>
         <Button
           onClick={() => {
-            GenerateNewTab({ name: "Settings", iconName: "faGear" });
+            GenerateNewTab({
+              name: "Settings",
+              iconName: "faGear",
+              componentPointer: Document,
+            });
           }}
           buttonBackgroundColor="general-blue"
           buttonType="Normal"
