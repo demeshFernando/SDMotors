@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { type addingNewTabProps as AddingNewTabProps } from "../../functionalitites/types.tsx";
+import { type addingNewTabProps } from "../../functionalitites/types.tsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons";
-
-type addingNewTabProps = AddingNewTabProps;
 
 type isTabActiveProps = {
   name: string;
