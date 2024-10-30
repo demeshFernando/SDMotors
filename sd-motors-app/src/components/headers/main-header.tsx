@@ -1,4 +1,4 @@
-import Button from "../button/button";
+import Button from "../inputs/button";
 import Document from "../documents/document";
 import Notification from "../notification/notification";
 
@@ -45,6 +45,7 @@ export default function MainHeader(props: mainHeaderProps) {
           }}
           buttonBackgroundColor="general-blue"
           buttonType="Normal"
+          buttonStyle="Flat-Rounded"
         >
           Notification
         </Button>
@@ -58,6 +59,7 @@ export default function MainHeader(props: mainHeaderProps) {
           }}
           buttonBackgroundColor="general-blue"
           buttonType="Normal"
+          buttonStyle="Flat-Rounded"
         >
           Documents
         </Button>
@@ -71,11 +73,13 @@ export default function MainHeader(props: mainHeaderProps) {
           }}
           buttonBackgroundColor="general-blue"
           buttonType="Normal"
+          buttonStyle="Flat-Rounded"
         >
           <FontAwesomeIcon icon={iconsSet["faGear"]} />
         </Button>
         <Button
           buttonType="WithDropDownMenu"
+          buttonStyle="Flat-Rounded"
           buttonBackgroundColor="general-blue"
           dropDownItems={[
             { mainHeader: "View Profile", iconName: "faUser" },
