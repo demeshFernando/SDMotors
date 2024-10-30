@@ -1,6 +1,7 @@
 :root {
   --general-blue: #244157;
   --general-white: white;
+  --general-green: #33874e;
   --general-gray: #d2d0cd;
   --text-unfocused-color: #8b8886;
   --light-blue: #e5ecf3;
@@ -12,6 +13,10 @@
   font-family: "Roboto", sans-serif;
   padding: 0;
   margin: 0;
+}
+
+.main-body {
+  width: 100%;
 }
 
 .main-header {
@@ -33,32 +38,6 @@
 
 .right-section-functionalities {
   display: flex;
-}
-
-button.user-account-name {
-  display: flex;
-  position: relative;
-  align-items: center;
-}
-
-button.user-account-name h3 {
-  display: flex;
-  flex-direction: column;
-}
-
-button {
-  padding: 2px 10px;
-  border: none;
-  border-radius: 5px;
-}
-
-button:hover {
-  cursor: pointer;
-  background-color: var(--general-white);
-}
-
-button:hover h3 {
-  color: var(--general-blue);
 }
 
 .drop-down-box {

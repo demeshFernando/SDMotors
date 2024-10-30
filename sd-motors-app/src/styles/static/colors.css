@@ -3,6 +3,14 @@
   background-color: var(--general-blue);
 }
 
+.general-green {
+  background-color: var(--general-green);
+}
+
+.general-white {
+  background-color: var(--general-white);
+}
+
 /* font colors */
 .font-white {
   color: var(--general-white);
