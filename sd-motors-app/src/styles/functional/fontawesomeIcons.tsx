@@ -7,7 +7,12 @@ import {
   faFile,
   faMessage,
   faFolderOpen,
+  faMagnifyingGlass,
+  faPlus,
+  faRotate,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 const iconsSet = {
   faAngleDown: faAngleDown,
@@ -18,6 +23,10 @@ const iconsSet = {
   faFile: faFile,
   faMessage: faMessage,
   faFolderOpen: faFolderOpen,
+  faMagnifyingGlass: faMagnifyingGlass,
+  faPlus: faPlus,
+  faRotate: faRotate,
+  faTrashCan: faTrashCan,
 };
 
 export default iconsSet;

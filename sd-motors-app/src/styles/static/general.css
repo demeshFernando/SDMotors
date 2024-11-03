@@ -53,3 +53,19 @@
 .div-position-relative {
   position: relative;
 }
+
+.inline-icon-right {
+  padding-right: 5px;
+}
+.inline-icon-left {
+  padding-left: 5px;
+}
+
+a.linked-content-properties {
+  text-decoration: none;
+  color: var(--general-blue);
+}
+
+a.linked-content-properties:hover {
+  border: 1px solid var(--general-blue);
+}
