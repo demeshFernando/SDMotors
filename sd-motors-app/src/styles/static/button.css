@@ -30,3 +30,11 @@ button.main-header:hover {
 button.main-header:hover h3 {
   color: var(--general-blue);
 }
+
+button.flat-left-margined {
+  margin-left: 5px;
+}
+
+button.flat-with-drop-down {
+  display: flex;
+}

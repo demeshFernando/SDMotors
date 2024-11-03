@@ -5,7 +5,9 @@
   flex-grow: 1;
   color: black;
   border-radius: none;
-  padding: 5px 10px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   color: var(--text-unfocused-color);
   font-size: 15px;
 }

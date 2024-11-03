@@ -1,0 +1,35 @@
+table.list-view {
+  width: 100%;
+}
+
+table.list-view th.with-border,
+table.list-view td.with-border {
+  border-right: 2px solid black;
+}
+
+table.list-view th {
+  border-bottom: 2px solid black;
+  padding: 2px 2px;
+}
+
+table.list-view td {
+  padding: 4px 2px;
+  vertical-align: middle;
+}
+
+table.list-view td.center-align {
+  text-align: center;
+}
+
+table.list-view tr.color-blue {
+  background-color: var(--light-blue);
+}
+
+.empty-list-view {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-style: italic;
+  font-size: 12px;
+  padding-top: 10px;
+}
