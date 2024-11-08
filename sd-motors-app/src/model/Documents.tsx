@@ -1,7 +1,7 @@
 export default [
   {
     DocumentID: 3224,
-    DocumentName: "Nissan GTR",
+    DocumentName: "Ordinary",
     CreatedDate: "2024-11-08T07:00:00",
     UpdatedDate: "2024-11-08T07:00:00",
     CreatedBy: 0,
