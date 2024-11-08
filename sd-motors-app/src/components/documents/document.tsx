@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "../inputs/button.tsx";
 import TextBox from "../inputs/text.tsx";
 import ListItems from "../listView.tsx/list-view.tsx";
+import {
+  GetDocumentsList,
+  type getDocumentsListReturnProps,
+} from "../../controllers/DocumentsController.tsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons";
 
+type thisProps = {
+  collection: getDocumentsListReturnProps;
+};
 export default function Document() {
-  const [handleClick, setHandleClick] = useState();
+  const [object, setObject] = useState<thisProps>({
+    collection: {
+      documentHeader: [],
+      documents: [[]],
+    },
+  });
+
+  useEffect(() => {
+    setObject({
+      collection: GetDocumentsList(),
+    });
+  }, []);
 
   return (
     <div className="documents-list-view">
@@ -62,14 +80,8 @@ export default function Document() {
       </div>
       <div className="documents-list-body">
         <ListItems
-          headerItems={[
-            <input type="checkbox" name="select" id="select" />,
-            "ID",
-            "Name",
-            "Created Date",
-            "Created By",
-          ]}
-          grandElements={[[]]}
+          headerItems={object.collection.documentHeader}
+          grandElements={object.collection.documents}
         />
       </div>
     </div>

@@ -1,10 +1,6 @@
-function GetDate(): string {
-  const now = new Date();
-  let year = now.getFullYear();
-  let month: string = "Unknown";
-  let day = now.getDate();
-
-  switch (now.getMonth() + 1) {
+function GetMonthName(monthNumber: number): string {
+  let month: string = "";
+  switch (monthNumber + 1) {
     case 1:
       month = "January";
       break;
@@ -42,6 +38,14 @@ function GetDate(): string {
       month = "December";
       break;
   }
+  return month;
+}
+
+function GetDate(): string {
+  const now = new Date();
+  let year = now.getFullYear();
+  let month: string = GetMonthName(now.getMonth());
+  let day = now.getDate();
 
   return `${month} ${day}, ${year}`;
 }
@@ -51,4 +55,12 @@ function GetDayName(): string {
   return now.toLocaleDateString("en-US", { weekday: "long" });
 }
 
-export default { GetDate, GetDayName };
+function FormatSpecificDate(date: Date): string {
+  let month = GetMonthName(date.getMonth());
+  let dateNumber = date.getDate();
+  let year = date.getFullYear();
+
+  return `${month} ${dateNumber}, ${year}`;
+}
+
+export default { GetDate, GetDayName, FormatSpecificDate };
