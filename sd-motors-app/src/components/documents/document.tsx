@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 
 import Button from "../inputs/button.tsx";
 import TextBox from "../inputs/text.tsx";
@@ -11,33 +11,53 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons";
 
-type thisProps = {
+type objectProps = {
   collection: getDocumentsListReturnProps;
 };
 export default function Document() {
-  const [object, setObject] = useState<thisProps>({
+  const [object, setObject] = useState<objectProps>({
     collection: {
       documentHeader: [],
       documents: [[]],
     },
   });
+  const [searchTextHolder, setSearchTextHolder] = useState<string>("");
 
   useEffect(() => {
     setObject({
-      collection: GetDocumentsList(),
+      collection: GetDocumentsList(""),
     });
   }, []);
+
+  const HandleTextboxTextChanges = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTextHolder(event.target.value);
+  };
+
+  const FilterList = (searchValue: string) => {
+    setObject({
+      collection: GetDocumentsList(searchValue),
+    });
+  };
 
   return (
     <div className="documents-list-view">
       <div className="documents-list-header">
         <div className="left-section">
-          <TextBox id="search" name="search" placeHolder="Search documents" />
+          <TextBox
+            onChange={HandleTextboxTextChanges}
+            id="search"
+            name="search"
+            placeHolder="Search documents"
+            value={searchTextHolder}
+          />
           <Button
             buttonType="Normal"
             buttonBackgroundColor="Secondary"
             buttonStyle="Flat"
             spaceAround="Left"
+            onClick={() => {
+              FilterList(searchTextHolder);
+            }}
           >
             <FontAwesomeIcon icon={iconsSet["faMagnifyingGlass"]} />
           </Button>
