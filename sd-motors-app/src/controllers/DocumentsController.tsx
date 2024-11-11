@@ -106,13 +106,13 @@ function FilterItems(searchValue: string, searchingString: string): boolean {
     i++, j++
   ) {
     let extractedText: string = "";
-    let k = j;
+    let k = i;
     while (k <= j) {
       extractedText += searchingString[k];
       k++;
     }
 
-    if (extractedText === searchValue) {
+    if (extractedText.toLowerCase() === searchValue.toLowerCase()) {
       isSearchFound = true;
       break;
     }
