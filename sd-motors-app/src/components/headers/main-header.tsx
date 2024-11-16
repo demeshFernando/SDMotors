@@ -1,5 +1,5 @@
 import Button from "../inputs/button";
-import Document from "../documents/document";
+import Document from "../documents/documents";
 import Notification from "../notification/notification";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
