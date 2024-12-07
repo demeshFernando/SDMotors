@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { type addingNewTabProps } from "../../functionalitites/types.tsx";
+import {
+  type addingNewTabProps,
+  type componentProps,
+} from "../../functionalitites/types.tsx";
+
+import componentMap from "../componentMap.tsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons";
@@ -10,18 +15,32 @@ type isTabActiveProps = {
   isActive: boolean;
   classNames: string;
   lastActiveTime: Date;
-  componentPointer: React.ComponentType;
+  componentKey: keyof typeof componentMap;
+  options: componentProps<keyof typeof componentMap>;
 };
 
 type tabViewProps = {
   newTabObject: addingNewTabProps | undefined;
 };
 
+type customComponentProps<k extends keyof typeof componentMap> = {
+  componentKey: k;
+  options?: componentProps<k>;
+};
+
+const CustomComponent = <k extends keyof typeof componentMap>({
+  componentKey,
+  options,
+}: customComponentProps<k>) => {
+  const Component = componentMap[componentKey] as React.ComponentType<
+    (typeof componentMap)[k]
+  >;
+  return <Component {...(options as (typeof componentMap)[k])} />;
+};
+
 export default function TabView({ newTabObject }: tabViewProps) {
   const [isTabActive, setIsTabActive] = useState<isTabActiveProps[]>([]);
-  let CustomComponent: React.ComponentType = () => {
-    return <div className="main-body"></div>;
-  };
+  let Component = <CustomComponent componentKey="DefaultComponent" />;
 
   useEffect(() => {
     if (typeof newTabObject !== "undefined") {
@@ -47,7 +66,8 @@ export default function TabView({ newTabObject }: tabViewProps) {
           classNames: "button-content",
           iconName: isTabActive[i].iconName,
           lastActiveTime: isTabActive[i].lastActiveTime,
-          componentPointer: isTabActive[i].componentPointer,
+          componentKey: isTabActive[i].componentKey,
+          options: isTabActive[i].options,
         },
       ];
     }
@@ -65,7 +85,8 @@ export default function TabView({ newTabObject }: tabViewProps) {
       classNames: "button-content active",
       iconName: tabDetails.iconName,
       lastActiveTime: new Date(),
-      componentPointer: tabDetails.componentPointer,
+      componentKey: tabDetails.componentKey,
+      options: tabDetails.options,
     };
     setIsTabActive([...openedTabs, newTabProperties]);
   };
@@ -113,7 +134,8 @@ export default function TabView({ newTabObject }: tabViewProps) {
             classNames: "button-content active",
             iconName: isTabActive[i].iconName,
             lastActiveTime: new Date(),
-            componentPointer: isTabActive[i].componentPointer,
+            componentKey: isTabActive[i].componentKey,
+            options: isTabActive[i].options,
           },
         ];
         isEvenOneTabActive = true;
@@ -126,7 +148,8 @@ export default function TabView({ newTabObject }: tabViewProps) {
             classNames: "button-content active",
             iconName: isTabActive[i].iconName,
             lastActiveTime: new Date(),
-            componentPointer: isTabActive[i].componentPointer,
+            componentKey: isTabActive[i].componentKey,
+            options: isTabActive[i].options,
           },
         ];
       } else {
@@ -138,7 +161,8 @@ export default function TabView({ newTabObject }: tabViewProps) {
             classNames: "button-content",
             iconName: isTabActive[i].iconName,
             lastActiveTime: isTabActive[i].lastActiveTime,
-            componentPointer: isTabActive[i].componentPointer,
+            componentKey: isTabActive[i].componentKey,
+            options: isTabActive[i].options,
           },
         ];
       }
@@ -148,7 +172,12 @@ export default function TabView({ newTabObject }: tabViewProps) {
 
   const generateChildren = isTabActive.map((child, index) => {
     if (child.isActive) {
-      CustomComponent = child.componentPointer;
+      Component = (
+        <CustomComponent
+          componentKey={child.componentKey}
+          options={child.options}
+        />
+      );
     }
     return (
       <div className="tab-button" key={index}>
@@ -178,12 +207,24 @@ export default function TabView({ newTabObject }: tabViewProps) {
       </div>
     );
   });
+
+  if (typeof newTabObject !== undefined) {
+    if (typeof newTabObject?.options !== undefined) {
+      return isTabActive.length > 0 ? (
+        <>
+          <div className="tab-view">{generateChildren}</div>
+          <div className="main-body">{Component}</div>
+        </>
+      ) : (
+        <div className="tab-view-empty"></div>
+      );
+    }
+  }
+
   return isTabActive.length > 0 ? (
     <>
       <div className="tab-view">{generateChildren}</div>
-      <div className="main-body">
-        <CustomComponent />
-      </div>
+      <div className="main-body">{Component}</div>
     </>
   ) : (
     <div className="tab-view-empty"></div>

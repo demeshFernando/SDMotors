@@ -1,0 +1,196 @@
+.document {
+  padding-top: 25px;
+}
+
+.document .document-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+  align-items: center;
+}
+
+.document .document-header .document-left {
+  width: 40%;
+  margin: 0 30px;
+  padding: 0 70px 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.document .document-header .document-left .document-name strong {
+  padding-right: 10px;
+}
+
+.document .document-header .document-left .document-created-date {
+  display: flex;
+}
+
+.document-header .document-owner-and-versioning {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.document-owner-and-versioning .version-number {
+  padding-right: 5px;
+}
+
+.document-owner-and-versioning .version {
+  display: flex;
+}
+
+.document .document-header .document-right {
+  width: 25%;
+  display: flex;
+  align-items: top;
+}
+
+.document-body .document-body-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 30px 10px 30px;
+  border-bottom: 2px solid red;
+}
+
+.document-body .document-body-header .company-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.document-body .document-body-header .company-details h1 {
+  font-size: 60px;
+  color: var(--general-blue);
+}
+
+.document-body .document-body-header .company-details > * {
+  padding-bottom: 5px;
+}
+
+.evaluation-details .identities {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.evaluation-details .identities .character-qualities {
+  background-color: #f1f1f1;
+  padding: 10px 20px;
+  border: 1px solid #c8c8c8;
+}
+
+.evaluation-details .evaluation-for,
+.evaluation-details .evaluation-amount {
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.evaluation-details .evaluation-for table,
+.evaluation-details .evaluation-amount table {
+  width: 50%;
+}
+
+th {
+  text-align: left;
+}
+
+.evaluation-details .evaluation-for th {
+  width: 300px;
+}
+
+.evaluation-details .usual-evaluation {
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.evaluation-details .usual-evaluation table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.evaluation-details .usual-evaluation th,
+.evaluation-details .usual-evaluation td {
+  border: 2px solid black;
+  min-height: 50px;
+  height: auto;
+  padding: 5px;
+}
+
+.evaluation-details .tests {
+  display: flex;
+  width: 100%;
+  padding: 10px 20px;
+  justify-content: space-around;
+}
+
+.evaluation-details .image-collection {
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid black;
+}
+
+.evaluation-details .image-collection .half-block {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+}
+
+.evaluation-details .image-collection .full-block {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.evaluation-details .image-collection .full-block img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+}
+
+.evaluation-details .image-collection .half-block img {
+  height: 50%;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.evaluation-details .tests table {
+  border-collapse: collapse;
+  width: 35%;
+}
+
+.evaluation-details .tests th,
+.evaluation-details .tests td {
+  border: 2px solid black;
+  padding: 5px;
+  min-height: 50px;
+  height: auto;
+}
+
+.supplier-declaration h1,
+.valuer-declaration h1 {
+  font-size: 16px;
+}
+
+.evaluation-details .evaluation-amount td {
+  color: #ff0000;
+}
+
+.evaluation-details .signature {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 40px 20px;
+}
