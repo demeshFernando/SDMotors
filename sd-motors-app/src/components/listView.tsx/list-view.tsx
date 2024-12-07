@@ -26,6 +26,7 @@ type ListHeaderProps = {
 type ListItemsProps = {
   headerItems: headerItemDisplay;
   grandElements: (string | JSX.Element)[][];
+  onDocumentOpening: (documentID: number, documentVersionID: number) => void;
 };
 
 function GenerateClassNames(
@@ -92,7 +93,66 @@ function GenerateClassNames(
 export default function ListItems({
   headerItems,
   grandElements,
+  onDocumentOpening,
 }: ListItemsProps) {
+  const onClickEvent = (documentID: number, documentVersionID: number) => {
+    if (documentID > -1 && documentVersionID > -1) {
+      onDocumentOpening(documentID, documentVersionID);
+    }
+  };
+
+  const FilterIDs = (
+    index: number,
+    idHolderHeaderName: string,
+    versionIdHolderHeaderName: string
+  ) => {
+    let documentID: number = -1;
+    let documentVersionID: number = -1;
+    let idFoundIndex: number = -1;
+    let versionIdFoundIndex: number = -1;
+
+    //checking whether the header has a length
+    if (headerItems.length <= 0) {
+      return {
+        documentID: documentID,
+        documentVersionID: documentVersionID,
+      };
+    }
+
+    //finding the ID holding index
+    for (let i = 0; i < headerItems.length; i++) {
+      if (headerItems[i] === idHolderHeaderName) {
+        idFoundIndex = i;
+      } else if (headerItems[i] === versionIdHolderHeaderName) {
+        versionIdFoundIndex = i;
+      }
+    }
+
+    if (idFoundIndex > -1 && versionIdFoundIndex > -1) {
+      let idElement = grandElements[index][idFoundIndex];
+      let versionIdElement = grandElements[index][versionIdFoundIndex];
+      try {
+        if (
+          typeof idElement === "string" &&
+          typeof versionIdElement === "string"
+        ) {
+          documentID = Number.parseInt(idElement);
+          documentVersionID = Number.parseInt(versionIdElement);
+        }
+      } catch (E) {
+        return {
+          documentID: documentID,
+          documentVersionID: documentVersionID,
+        };
+      }
+    }
+
+    return {
+      documentID: documentID,
+      documentVersionID: documentVersionID,
+    };
+  };
+
   const Elements = grandElements.map((children, index) => {
     const isEvenRow: boolean = index % 2 === 0;
     const headerClassNamesGeneration: GenerateClassNamesReturnProps =
@@ -111,12 +171,41 @@ export default function ListItems({
           isEven: isEvenRow,
           isLastElement: children.length - 1 === childIndex,
         });
+
+      if (typeof child === "string") {
+        return generatedClassNames.chidElementClassNames === "" ? (
+          <td key={index + "" + childIndex}>{child}</td>
+        ) : (
+          <td
+            key={index + "" + childIndex}
+            className={generatedClassNames.chidElementClassNames}
+          >
+            {child}
+          </td>
+        );
+      }
       return generatedClassNames.chidElementClassNames === "" ? (
-        <td key={index + "" + childIndex}>{child}</td>
+        <td
+          key={index + "" + childIndex}
+          onClick={() => {
+            onClickEvent(
+              FilterIDs(index, "ID", "Version").documentID,
+              FilterIDs(index, "ID", "Version").documentVersionID
+            );
+          }}
+        >
+          {child}
+        </td>
       ) : (
         <td
           key={index + "" + childIndex}
           className={generatedClassNames.chidElementClassNames}
+          onClick={() => {
+            onClickEvent(
+              FilterIDs(index, "ID", "Version").documentID,
+              FilterIDs(index, "ID", "Version").documentVersionID
+            );
+          }}
         >
           {child}
         </td>

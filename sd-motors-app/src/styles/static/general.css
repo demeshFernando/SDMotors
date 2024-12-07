@@ -25,6 +25,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  width: 100%;
+  z-index: 10;
 }
 
 .left-section-logo {
@@ -39,6 +41,8 @@
 
 .right-section-functionalities {
   display: flex;
+  gap: 5px;
+  z-index: 11;
 }
 
 .drop-down-box {
@@ -49,6 +53,7 @@
   right: 0;
   background-color: var(--general-white);
   border: 1px solid black;
+  z-index: 11;
 }
 
 .div-position-relative {

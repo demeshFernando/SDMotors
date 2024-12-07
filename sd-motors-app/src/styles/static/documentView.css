@@ -127,6 +127,46 @@ th {
   justify-content: space-around;
 }
 
+.evaluation-details .image-collection {
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-around;
+  align-items: center;
+  border: 2px solid black;
+}
+
+.evaluation-details .image-collection .half-block {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+}
+
+.evaluation-details .image-collection .full-block {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.evaluation-details .image-collection .full-block img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+}
+
+.evaluation-details .image-collection .half-block img {
+  height: 50%;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .evaluation-details .tests table {
   border-collapse: collapse;
   width: 35%;

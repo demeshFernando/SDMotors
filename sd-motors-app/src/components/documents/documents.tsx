@@ -7,16 +7,19 @@ import TextBox from "../inputs/text.tsx";
 import ListItems from "../listView.tsx/list-view.tsx";
 import {
   GetDocumentsList,
+  GetDocumentName,
   type getDocumentsListReturnProps,
 } from "../../controllers/DocumentsController.tsx";
-import DocumentView from "./document.tsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons.tsx";
-import { OpenNewTab } from "../../functionalitites/common.tsx";
+import { OpenNewTab, GetElement } from "../../functionalitites/common.tsx";
 
 type objectProps = {
-  collection: getDocumentsListReturnProps;
+  collection: {
+    documentHeader: (string | JSX.Element)[];
+    documents: (string | JSX.Element)[][];
+  };
 };
 export default function Document() {
   const [object, setObject] = useState<objectProps>({
@@ -28,19 +31,76 @@ export default function Document() {
   const [searchTextHolder, setSearchTextHolder] = useState<string>("");
 
   useEffect(() => {
-    setObject({
-      collection: GetDocumentsList(""),
-    });
+    setObject(FormatCollection(GetDocumentsList("")));
   }, []);
+
+  const FormatCollection = (
+    object: getDocumentsListReturnProps
+  ): objectProps => {
+    if (object.length < 1) {
+      return {
+        collection: {
+          documentHeader: [
+            <input type="checkbox" name="select-all" id="select" />,
+            "ID",
+            "Version",
+            "Name",
+            "Created Date",
+            "Created By",
+          ],
+          documents: [[]],
+        },
+      };
+    }
+    //getting the headers
+    let tableHeaders: (string | JSX.Element)[] = [];
+    tableHeaders.push(
+      <input type="checkbox" name="select-all" id="documentListAll" />
+    );
+    Object.keys(object[0]).forEach((value) => {
+      tableHeaders.push(value);
+    });
+
+    //table value generation
+    let tableBody: (string | JSX.Element)[][] = [];
+    for (let i = 0; i < object.length; i++) {
+      let isFirstValueAddon = true;
+      let tempTableRow: (string | JSX.Element)[] = [];
+      let idGeneration = 0;
+      Object.entries(object[i]).forEach(([key, bodyValue]) => {
+        if (isFirstValueAddon) {
+          tempTableRow.push(
+            <input type="checkbox" name={key} id={i + "" + idGeneration} />
+          );
+          isFirstValueAddon = false;
+        }
+        tempTableRow.push(
+          key === "Name" || key === "Created By"
+            ? GetElement({
+                children: bodyValue[0].ColumnValue.toString(),
+                ElementType: "link",
+              })
+            : bodyValue[0].ColumnValue.toString()
+        );
+        idGeneration++;
+      });
+      tableBody.push(tempTableRow);
+    }
+
+    return {
+      collection: {
+        documentHeader: tableHeaders,
+        documents: tableBody,
+      },
+    };
+  };
 
   const HandleTextboxTextChanges = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTextHolder(event.target.value);
   };
 
   const FilterList = (searchValue: string) => {
-    setObject({
-      collection: GetDocumentsList(searchValue),
-    });
+    setObject(FormatCollection(GetDocumentsList(searchValue)));
   };
 
   const NewTabInitialization = (tabFor: "document") => {
@@ -48,11 +108,26 @@ export default function Document() {
 
     if (tabFor === "document") {
       tempObject = {
-        componentPointer: DocumentView,
+        componentKey: "DocumentViewComponent",
         iconName: "faFolderOpen",
         name: "New Document",
+        options: {},
       };
       OpenNewTab(tempObject);
+    }
+  };
+
+  const openDocument = (DocumentID: number, DocumentVersionID: number) => {
+    if (DocumentID > -1 && DocumentVersionID > -1) {
+      OpenNewTab({
+        componentKey: "DocumentViewComponent",
+        iconName: "faFolderOpen",
+        name: GetDocumentName(DocumentID, DocumentVersionID),
+        options: {
+          DocumentID: DocumentID,
+          DocumentVersionID: DocumentVersionID,
+        },
+      });
     }
   };
 
@@ -120,6 +195,7 @@ export default function Document() {
       </div>
       <div className="documents-list-body">
         <ListItems
+          onDocumentOpening={openDocument}
           headerItems={object.collection.documentHeader}
           grandElements={object.collection.documents}
         />

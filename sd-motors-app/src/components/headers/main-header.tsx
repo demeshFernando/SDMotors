@@ -1,6 +1,4 @@
 import Button from "../inputs/button";
-import Document from "../documents/documents";
-import Notification from "../notification/notification";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import iconsSet from "../../styles/functional/fontawesomeIcons";
@@ -40,7 +38,7 @@ export default function MainHeader(props: mainHeaderProps) {
             GenerateNewTab({
               name: "Notification",
               iconName: "faMessage",
-              componentPointer: Notification,
+              componentKey: "Notification",
             });
           }}
           buttonBackgroundColor="general-blue"
@@ -54,7 +52,7 @@ export default function MainHeader(props: mainHeaderProps) {
             GenerateNewTab({
               name: "Documents",
               iconName: "faFile",
-              componentPointer: Document,
+              componentKey: "Documents",
             });
           }}
           buttonBackgroundColor="general-blue"
@@ -68,7 +66,7 @@ export default function MainHeader(props: mainHeaderProps) {
             GenerateNewTab({
               name: "Settings",
               iconName: "faGear",
-              componentPointer: Document,
+              componentKey: "Documents",
             });
           }}
           buttonBackgroundColor="general-blue"
