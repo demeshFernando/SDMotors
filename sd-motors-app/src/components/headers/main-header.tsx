@@ -66,7 +66,7 @@ export default function MainHeader(props: mainHeaderProps) {
             GenerateNewTab({
               name: "Settings",
               iconName: "faGear",
-              componentKey: "Documents",
+              componentKey: "SettingsView",
             });
           }}
           buttonBackgroundColor="general-blue"
@@ -80,8 +80,18 @@ export default function MainHeader(props: mainHeaderProps) {
           buttonStyle="Flat-Rounded"
           buttonBackgroundColor="general-blue"
           dropDownItems={[
-            { mainHeader: "View Profile", iconName: "faUser" },
-            { mainHeader: "Sign out", iconName: "faRightFromBracket" },
+            {
+              mainHeader: "View Profile",
+              iconName: "faUser",
+              onClick: () => {},
+              ActionComponentRequiredProperties: "",
+            },
+            {
+              mainHeader: "Sign out",
+              iconName: "faRightFromBracket",
+              onClick: () => {},
+              ActionComponentRequiredProperties: "",
+            },
           ]}
         >
           <span>Hansika</span> <span>Wijerathne</span>
