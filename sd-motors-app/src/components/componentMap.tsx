@@ -1,6 +1,7 @@
 import DocumentView from "./documents/document";
 import Notification from "./notification/notification";
 import Document from "./documents/documents";
+import StaffOptions from "./staffOptions/staffOptions";
 
 export default {
   DefaultComponent: () => {
@@ -9,4 +10,5 @@ export default {
   Documents: Document,
   DocumentViewComponent: DocumentView,
   Notification: Notification,
+  SettingsView: StaffOptions,
 } as const;

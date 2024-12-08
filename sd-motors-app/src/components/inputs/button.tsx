@@ -17,7 +17,12 @@ type DropDownButtons = {
   buttonType: "WithDropDownMenu";
   buttonStyle: ButtonStyle;
   buttonBackgroundColor: CustomBackgroundColors;
-  dropDownItems: { iconName: keyof typeof iconsSet; mainHeader: string }[];
+  dropDownItems: {
+    iconName: keyof typeof iconsSet;
+    mainHeader: string;
+    onClick: (props: any) => void;
+    ActionComponentRequiredProperties: any;
+  }[];
   children: ReactNode;
   spaceAround?: spaceAroundType;
   onClick?: never;
@@ -295,7 +300,14 @@ export default function Button(props: ButtonProps) {
             <div className="drop-down-box">
               {dropDownItems.map((dropDownItem, index) => {
                 return (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    onClick={() => {
+                      dropDownItem.onClick(
+                        dropDownItem.ActionComponentRequiredProperties
+                      );
+                    }}
+                  >
                     <FontAwesomeIcon
                       className="icon"
                       icon={iconsSet[dropDownItem.iconName]}

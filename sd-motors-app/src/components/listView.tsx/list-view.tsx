@@ -27,6 +27,7 @@ type ListItemsProps = {
   headerItems: headerItemDisplay;
   grandElements: (string | JSX.Element)[][];
   onDocumentOpening: (documentID: number, documentVersionID: number) => void;
+  isOnClickTriggeringRequired?: boolean;
 };
 
 function GenerateClassNames(
@@ -94,6 +95,7 @@ export default function ListItems({
   headerItems,
   grandElements,
   onDocumentOpening,
+  isOnClickTriggeringRequired = false,
 }: ListItemsProps) {
   const onClickEvent = (documentID: number, documentVersionID: number) => {
     if (documentID > -1 && documentVersionID > -1) {
@@ -172,7 +174,7 @@ export default function ListItems({
           isLastElement: children.length - 1 === childIndex,
         });
 
-      if (typeof child === "string") {
+      if (!isOnClickTriggeringRequired) {
         return generatedClassNames.chidElementClassNames === "" ? (
           <td key={index + "" + childIndex}>{child}</td>
         ) : (

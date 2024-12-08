@@ -13,6 +13,7 @@ import {
 import { IsJson } from "../../functionalitites/common.tsx";
 import { GetBase64 } from "../../controllers/PIctureController.tsx";
 import { GetDocument } from "../../controllers/DocumentsController.tsx";
+import { DownloadPDF, ViewPDF } from "../PDFGenerator/convertToPdf.tsx";
 
 type usualTwoColumnRepoRow = usualTableFormatType;
 
@@ -1386,6 +1387,49 @@ export default function DocumentView(props: any) {
     }
   );
 
+  const ActionComponentFunctions = {
+    PrintPreview: () => {
+      ViewPDF();
+    },
+    Print: () => {
+      DownloadPDF();
+    },
+  };
+
+  const ActionComponentValidator = (props: any): void => {
+    if (typeof props === "string") {
+      if (props === "PrintPreview") {
+        ActionComponentFunctions.PrintPreview();
+      } else if (props === "Print") {
+        ActionComponentFunctions.Print();
+      }
+    }
+  };
+
+  const documentBodyHeader = (
+    <div className="document-body-header">
+      <div className="document-body-header-logo">
+        <h1>Logo</h1>
+      </div>
+      <div className="company-details">
+        <h1>S.D. MOTORS</h1>
+        <p className="company-address">
+          NO. 400/239, NEGOMBO ROAD, SEEDUWA VILLAGE, SEEDUWA
+        </p>
+        <p className="contact">CONTACT: 0774300072 / 0773552072</p>
+        <p className="email">EMAIL: sdmotors.sdm@gmail.com</p>
+        <h3>
+          <strong>VEHICLE INSPECTION AND VALUATION REPORT</strong>
+        </h3>
+      </div>
+      <div className="company-registration-number">
+        <h1>
+          <strong>Registration</strong>
+        </h1>
+      </div>
+    </div>
+  );
+
   //generating evaluation details collection 01 table
   const evaluatedDocumentDetails = (
     <table className="main-evaluation-table">
@@ -1499,8 +1543,6 @@ export default function DocumentView(props: any) {
     </table>
   );
 
-  console.log(JSON.stringify(loadedDocument.SourceCode));
-
   return (
     <div className="document">
       <div className="document-header">
@@ -1572,16 +1614,16 @@ export default function DocumentView(props: any) {
             spaceAround="Left"
             dropDownItems={[
               {
-                iconName: "faNoteSticky",
-                mainHeader: "Notes",
+                iconName: "faFilePdf",
+                mainHeader: "Print Preview",
+                onClick: ActionComponentValidator,
+                ActionComponentRequiredProperties: "PrintPreview",
               },
               {
-                iconName: "faCodeCompare",
-                mainHeader: "Compares",
-              },
-              {
-                iconName: "faTrashCan",
-                mainHeader: "Delete",
+                iconName: "faPrint",
+                mainHeader: "Print",
+                onClick: ActionComponentValidator,
+                ActionComponentRequiredProperties: "Print",
               },
             ]}
           >
@@ -1589,28 +1631,8 @@ export default function DocumentView(props: any) {
           </Button>
         </div>
       </div>
-      <div className="document-body">
-        <div className="document-body-header">
-          <div className="document-body-header-logo">
-            <h1>Logo</h1>
-          </div>
-          <div className="company-details">
-            <h1>S.D. MOTORS</h1>
-            <p className="company-address">
-              NO. 400/239, NEGOMBO ROAD, SEEDUWA VILLAGE, SEEDUWA
-            </p>
-            <p className="contact">CONTACT: 0774300072 / 0773552072</p>
-            <p className="email">EMAIL: sdmotors.sdm@gmail.com</p>
-            <h3>
-              <strong>VEHICLE INSPECTION AND VALUATION REPORT</strong>
-            </h3>
-          </div>
-          <div className="company-registration-number">
-            <h1>
-              <strong>Registration</strong>
-            </h1>
-          </div>
-        </div>
+      <div className="document-body" id="pdf-content">
+        {documentBodyHeader}
         <div className="evaluation-details">
           <div className="identities">
             <div className="character-qualities">

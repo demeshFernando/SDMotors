@@ -186,6 +186,14 @@ export default function Document() {
               {
                 iconName: "faTrashCan",
                 mainHeader: "Delete",
+                onClick: () => {},
+                ActionComponentRequiredProperties: "",
+              },
+              {
+                iconName: "faRecycle",
+                mainHeader: "Recycle Bin",
+                onClick: () => {},
+                ActionComponentRequiredProperties: "",
               },
             ]}
           >
@@ -198,6 +206,7 @@ export default function Document() {
           onDocumentOpening={openDocument}
           headerItems={object.collection.documentHeader}
           grandElements={object.collection.documents}
+          isOnClickTriggeringRequired={true}
         />
       </div>
     </div>

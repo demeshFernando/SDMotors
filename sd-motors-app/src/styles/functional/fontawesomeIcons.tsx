@@ -14,6 +14,9 @@ import {
   faNoteSticky,
   faCodeCompare,
   faPenNib,
+  faPrint,
+  faFilePdf,
+  faRecycle,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -35,6 +38,9 @@ const iconsSet = {
   faNoteSticky: faNoteSticky,
   faCodeCompare: faCodeCompare,
   faPenNib: faPenNib,
+  faPrint: faPrint,
+  faFilePdf: faFilePdf,
+  faRecycle: faRecycle,
 };
 
 export default iconsSet;
